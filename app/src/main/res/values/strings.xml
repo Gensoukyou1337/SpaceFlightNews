@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Space Flight News</string>
+
+    <string name="greeting">%s, %s</string>
+    <string name="morning">Good Morning</string>
+    <string name="afternoon">Good Afternoon</string>
+    <string name="evening">Good Evening</string>
+    <string name="night">Good Night</string>
+
+    <string name="articles">Articles</string>
+    <string name="blogs">Blogs</string>
+    <string name="reports">Reports</string>
+
+    <string name="default_user_name">User</string>
+
+    <string name="permission_deny_alert">If you deny this permission you will not be able to receive a notification when you are logged out. Proceed anyway?</string>
+
+    <string name="notif_channel_name">SpaceFlightNews Notif Channel</string>
+    <string name="notif_channel_description">Notification Channel to alert the user that they`ve been logged out of SpaceFlightNews</string>
+
+    <string name="notif_title">You have been logged out</string>
+    <string name="notif_text">Open the app to login again.</string>
+</resources>

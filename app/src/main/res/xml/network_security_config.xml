@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <domain-config>
+        <domain includeSubdomains="true">https://api.spaceflightnewsapi.net/</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+        <pin-set>
+            <pin digest="SHA-256">aCu9gReMs18ofcr9sqEY/0D9FdKAARMOd+CZMmhv4Jo=</pin>
+            <!-- SSLLabs only gave me 1 Pin SHA-256 -->
+        </pin-set>
+    </domain-config>
+</network-security-config>
