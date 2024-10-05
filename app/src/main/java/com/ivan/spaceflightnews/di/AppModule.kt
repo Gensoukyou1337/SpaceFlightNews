@@ -5,7 +5,6 @@ import com.ivan.spaceflightnews.screens.details.DetailsViewModel
 import com.ivan.spaceflightnews.common.LoginCore
 import com.ivan.spaceflightnews.common.LoginDataStorage
 import com.ivan.spaceflightnews.jobs.LogoutAfterTenMinutesWork
-import com.ivan.spaceflightnews.screens.login.LoginViewModel
 import com.ivan.spaceflightnews.screens.main.MainScreenViewModel
 import com.ivan.spaceflightnews.screens.search.RecentSearchTermsStorage
 import com.ivan.spaceflightnews.screens.search.SearchScreenViewModel
@@ -32,7 +31,6 @@ val appModule = module {
     }
     viewModel { SearchScreenViewModel(get()) }
     viewModel { DetailsViewModel() }
-    viewModel { LoginViewModel() }
 
     viewModel { MainNavHostViewModel(get()) }
 

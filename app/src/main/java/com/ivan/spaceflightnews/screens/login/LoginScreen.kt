@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -12,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.work.OneTimeWorkRequestBuilder
@@ -31,7 +34,6 @@ import java.util.concurrent.TimeUnit
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: LoginViewModel = koinViewModel(),
     loginCore: LoginCore = koinInject()
 ) {
     val context = LocalContext.current
@@ -65,7 +67,7 @@ fun LoginScreen(
     }
 
     if (hasIdToken.value == false) {
-        Column {
+        Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "Please Login to access this app")
             Button(onClick = {
                 loginCore.login(context) {
