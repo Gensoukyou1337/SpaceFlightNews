@@ -1,5 +1,6 @@
 package com.ivan.spaceflightnews.di
 
+import com.ivan.spaceflightnews.MainNavHostViewModel
 import com.ivan.spaceflightnews.screens.details.DetailsViewModel
 import com.ivan.spaceflightnews.common.LoginCore
 import com.ivan.spaceflightnews.common.LoginDataStorage
@@ -32,6 +33,8 @@ val appModule = module {
     viewModel { SearchScreenViewModel(get()) }
     viewModel { DetailsViewModel() }
     viewModel { LoginViewModel() }
+
+    viewModel { MainNavHostViewModel(get()) }
 
     single<LoginDataStorage> { LoginDataStorage(get()) }
     single<LoginCore> { LoginCore(androidContext(), get()) }

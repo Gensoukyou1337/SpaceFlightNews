@@ -52,7 +52,7 @@ fun LoginScreen(
     LaunchedEffect(true) {
         loginCore.queryUserIDToken()
         // Changes to User ID Token in SharedPreferences is automatically reflected here.
-        loginCore.currentIDTokenSharedFlow.collect {
+        loginCore.currentIDTokenStateFlow.collect {
             hasIdToken.value = it.isNotEmpty()
             if (it.isNotEmpty()) {
                 if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {

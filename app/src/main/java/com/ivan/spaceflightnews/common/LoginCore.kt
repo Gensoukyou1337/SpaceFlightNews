@@ -9,12 +9,9 @@ import com.auth0.android.result.Credentials
 import com.ivan.spaceflightnews.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class LoginCore(
     private val appContext: Context,
@@ -28,10 +25,7 @@ class LoginCore(
     private val loginCoreCoroutineScope = CoroutineScope(Dispatchers.IO)
 
     private val _currentIDTokenSharedFlow: MutableStateFlow<String> = MutableStateFlow("")
-    val currentIDTokenSharedFlow: StateFlow<String> get() = _currentIDTokenSharedFlow
-
-    private val _currentUserName: MutableStateFlow<String> = MutableStateFlow("")
-    val currentUserName: StateFlow<String> get() = _currentUserName
+    val currentIDTokenStateFlow: StateFlow<String> get() = _currentIDTokenSharedFlow
 
     fun login(activityContext: Context, doOnLoginSuccess: (result: Credentials) -> Unit) {
         WebAuthProvider

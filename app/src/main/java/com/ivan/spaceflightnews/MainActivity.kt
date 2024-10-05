@@ -6,10 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -22,8 +23,11 @@ import com.ivan.spaceflightnews.screens.search.SearchScreen
 import com.ivan.spaceflightnews.screens.section.SectionScreen
 import com.ivan.spaceflightnews.ui.theme.SpaceFlightNewsTheme
 import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.component.KoinComponent
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), KoinComponent {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -53,8 +57,18 @@ data class ItemDetails(
 )
 
 @Composable
-fun MainNavHost() {
+fun MainNavHost(viewModel: MainNavHostViewModel = koinViewModel()) {
     val navController = rememberNavController()
+
+    LaunchedEffect(true) {
+        viewModel.getCurrentIDTokenFlow().collect {
+            if (it.isEmpty() && navController.currentBackStackEntry?.destination?.hasRoute<Login>() == false) {
+                navController.navigate(Login) {
+                    popUpTo(Main) {inclusive = true}
+                }
+            }
+        }
+    }
 
     NavHost(navController = navController, startDestination = Login) {
         composable<Login> { LoginScreen(navController = navController) }

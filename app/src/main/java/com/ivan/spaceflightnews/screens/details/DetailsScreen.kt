@@ -16,9 +16,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.google.gson.internal.bind.util.ISO8601Utils
 import com.ivan.spaceflightnews.ItemDetails
 import com.ivan.spaceflightnews.screens.commonviews.LoaderView
+import com.ivan.spaceflightnews.screens.utils.ISO8601DateConverter
 import org.koin.androidx.compose.koinViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
+
+private val dateFormat = SimpleDateFormat("dd-MM-yyyy, HH:mm:ss", Locale.ENGLISH)
 
 @Composable
 fun DetailsScreen(data: ItemDetails, viewModel: DetailsViewModel = koinViewModel()) {
@@ -49,7 +55,7 @@ fun DetailsScreen(data: ItemDetails, viewModel: DetailsViewModel = koinViewModel
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = it.publishedAt,
+                text = ISO8601DateConverter.convertISO8601DateToOtherFormat(it.publishedAt, dateFormat),
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
