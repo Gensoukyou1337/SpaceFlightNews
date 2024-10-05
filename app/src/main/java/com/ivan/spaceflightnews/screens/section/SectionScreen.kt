@@ -44,6 +44,7 @@ import com.ivan.spaceflightnews.Search
 import com.ivan.spaceflightnews.Section
 import com.ivan.spaceflightnews.common.ItemType
 import com.ivan.spaceflightnews.screens.commonviews.ErrorView
+import com.ivan.spaceflightnews.screens.commonviews.ItemLargeView
 import com.ivan.spaceflightnews.screens.commonviews.LoaderView
 import org.koin.androidx.compose.koinViewModel
 
@@ -99,38 +100,13 @@ fun SectionScreen(
         }
         LazyColumn(Modifier.weight(1f)) {
             items(itemPagingData.itemCount) { index ->
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(16.0f / 9)
-                    .padding(top = if (index == 0) 0.dp else 8.dp)
-                    .clickable {
+                itemPagingData[index]?.let {
+                    ItemLargeView(it, index) {
                         navController.navigate(
                             ItemDetails(
                                 itemType = data.itemType,
                                 itemId = itemPagingData[index]!!.id
                             )
-                        )
-                    }
-                ) {
-                    AsyncImage(
-                        model = itemPagingData[index]?.imageUrl,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                    Text(text = itemPagingData[index]?.title ?: "", modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter), fontSize = 24.sp)
-                    if (itemPagingData[index]?.launches?.isNotEmpty() == true) {
-                        Text(
-                            text = "Launches: ${itemPagingData[index]?.launches?.first()?.provider}",
-                            modifier = Modifier.align(Alignment.BottomStart)
-                        )
-                    }
-                    if (itemPagingData[index]?.events?.isNotEmpty() == true) {
-                        Text(
-                            text = "Events: ${itemPagingData[index]?.events?.first()?.provider}",
-                            modifier = Modifier.align(Alignment.BottomCenter)
                         )
                     }
                 }

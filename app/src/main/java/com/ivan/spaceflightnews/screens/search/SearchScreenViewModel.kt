@@ -58,6 +58,10 @@ class SearchScreenViewModel(
         }
     }
     fun addToRecentlySearchedItems(clickedSearchItem: Item) {
+        if (currentRecentlySearchedItemsList.contains(clickedSearchItem)) {
+            return
+        }
+
         currentRecentlySearchedItemsList.add(clickedSearchItem)
         if (currentRecentlySearchedItemsList.size > RECENTLY_SEARCHED_ITEMS_COUNT_LIMIT) {
             currentRecentlySearchedItemsList.removeAt(0)

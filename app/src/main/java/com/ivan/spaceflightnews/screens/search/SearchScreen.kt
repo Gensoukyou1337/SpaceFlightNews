@@ -34,8 +34,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.ivan.spaceflightnews.ItemDetails
 import com.ivan.spaceflightnews.Search
+import com.ivan.spaceflightnews.screens.commonviews.ItemLargeView
 import com.ivan.spaceflightnews.screens.commonviews.LoaderView
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 
 @Composable
 fun SearchScreen(
@@ -76,7 +78,9 @@ fun SearchScreen(
                 label = { Text("Search Term") }
             )
             Button(
-                modifier = Modifier.height(32.dp),
+                modifier = Modifier
+                    .height(32.dp)
+                    .align(Alignment.CenterVertically),
                 onClick = {
                     hasStartedSearching = true
                     if (searchTerm.isEmpty()) {
@@ -102,25 +106,13 @@ fun SearchScreen(
                     .wrapContentHeight(), fontSize = 16.sp)
                 Column(Modifier.weight(1f)) {
                     recentlySearchedItems.value.forEachIndexed { index, item ->
-                        Box(modifier = Modifier
-                            .aspectRatio(16.0f / 9)
-                            .padding(top = if (index == 0) 0.dp else 8.dp)
-                            .clickable {
-                                navController.navigate(
-                                    ItemDetails(
-                                        data.itemType,
-                                        itemPagingData[index]!!.id
-                                    )
+                        ItemLargeView(item = item, index = index) {
+                            navController.navigate(
+                                ItemDetails(
+                                    data.itemType,
+                                    item.id
                                 )
-                            }
-                        ) {
-                            AsyncImage(
-                                model = item.imageUrl,
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.fillMaxSize()
                             )
-                            Text(text = item.title, modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter), fontSize = 24.sp)
                         }
                     }
                 }
@@ -132,26 +124,16 @@ fun SearchScreen(
                     .wrapContentHeight(), fontSize = 16.sp)
                 LazyColumn(Modifier.weight(1f)) {
                     items(itemPagingData.itemCount) { index ->
-                        Box(
-                            modifier = Modifier
-                                .aspectRatio(16.0f / 9)
-                                .padding(top = if (index == 0) 0.dp else 8.dp)
-                                .clickable {
-                                    viewModel.addToRecentlySearchedItems(itemPagingData[index]!!)
-                                    navController.navigate(
-                                        ItemDetails(
-                                            data.itemType,
-                                            itemPagingData[index]!!.id
-                                        )
+                        itemPagingData[index]?.let {
+                            ItemLargeView(item = it, index = index) {
+                                viewModel.addToRecentlySearchedItems(it)
+                                navController.navigate(
+                                    ItemDetails(
+                                        data.itemType,
+                                        it.id
                                     )
-                                }
-                        ) {
-                            AsyncImage(
-                                model = itemPagingData[index]?.imageUrl,
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.fillMaxSize()
-                            )
+                                )
+                            }
                         }
                     }
                     itemPagingData.apply {

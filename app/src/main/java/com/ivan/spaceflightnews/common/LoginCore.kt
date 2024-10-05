@@ -24,8 +24,8 @@ class LoginCore(
 
     private val loginCoreCoroutineScope = CoroutineScope(Dispatchers.IO)
 
-    private val _currentIDTokenSharedFlow: MutableStateFlow<String> = MutableStateFlow("")
-    val currentIDTokenStateFlow: StateFlow<String> get() = _currentIDTokenSharedFlow
+    private val _currentIDTokenStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    val currentIDTokenStateFlow: StateFlow<String> get() = _currentIDTokenStateFlow
 
     fun login(activityContext: Context, doOnLoginSuccess: (result: Credentials) -> Unit) {
         WebAuthProvider
@@ -87,7 +87,7 @@ class LoginCore(
     fun queryUserIDToken() {
         loginCoreCoroutineScope.launch {
             loginDataStorage.getLoginIDToken().collect {
-                _currentIDTokenSharedFlow.emit(it)
+                _currentIDTokenStateFlow.emit(it)
             }
         }
     }

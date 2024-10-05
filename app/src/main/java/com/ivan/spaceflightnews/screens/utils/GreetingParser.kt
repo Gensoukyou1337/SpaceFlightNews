@@ -4,9 +4,7 @@ import android.content.Context
 import java.util.Calendar
 
 object GreetingParser {
-    fun getGreeting(context: Context, userName: String): String {
-        val rightNow = Calendar.getInstance()
-        val currentHourIn24Format: Int = rightNow.get(Calendar.HOUR_OF_DAY) // return the hour in 24 hrs format (ranging from 0-23)
+    fun getGreeting(context: Context, currentHourIn24Format: Int, userName: String): String {
         val greetingFirstPart = context.getString(
             if (currentHourIn24Format < 6) {
                 com.ivan.spaceflightnews.R.string.night

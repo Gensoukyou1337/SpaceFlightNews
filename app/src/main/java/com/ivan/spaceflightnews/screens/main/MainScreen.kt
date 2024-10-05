@@ -86,7 +86,7 @@ fun MainScreen(
 
 @Composable
 fun Header(context: Context, userName: State<String>, modifier: Modifier) {
-    Text(text = GreetingParser.getGreeting(context, userName.value), modifier = modifier
+    Text(text = GreetingParser.getGreeting(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), userName.value), modifier = modifier
         .wrapContentWidth()
         .wrapContentHeight(), fontSize = 24.sp, textAlign = TextAlign.Center)
 }
