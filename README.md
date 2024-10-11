@@ -8,4 +8,4 @@ Features:
 * Details Screen to display one-sentence summary
 
 Known Issues:
-* Auth0 will not be logged out when the 10 minute timer expires
+* When the 10 minute timer expires, only the ID Token and the User Name will be erased from Shared Preferences, Auth0 will not be logged out.
